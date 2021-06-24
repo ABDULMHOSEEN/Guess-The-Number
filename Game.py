@@ -2,7 +2,7 @@ import random
 
 x = random.randint(1, 10)
 t = 0
-y = int(input("Guess the number from 1 up to 10, You have 5 chances..."))
+y = int(input("Guess the number from 1 up to 10, You have 5 chances...."))
 
 
 
