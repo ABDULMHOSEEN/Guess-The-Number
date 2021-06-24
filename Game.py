@@ -6,7 +6,7 @@ y = int(input("Guess the number from 1 up to 10, You have 5 chances..."))
 
 
 
-if y == 123321:
+if (y == 123321):
     t = -99
     print('BOOM Error(99T) Now you can try as many as you want')
 
@@ -22,7 +22,7 @@ while x != y:
         print("Your number is more than 10 TRY AGAIN with less number")
         if y == 991:
             t = t
-            t-=1
+            t -= 1
         else:
             t -= 1
     elif y < 1:
