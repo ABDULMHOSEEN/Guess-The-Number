@@ -11,7 +11,7 @@ user_value = int(input("Guess the number from 1 up to 10, You have 5 chances..."
 
 # Do The processes
 while computer_guess != user_value:
-    # add 1 to the times
+    # add 1 to the times which is counter
     times += 1
     # some help
     # if the user enter the password 123 print the number of times that has been tried
@@ -22,17 +22,18 @@ while computer_guess != user_value:
     elif user_value == 123321:
         times = -99
         print('BOOM Error(99T) Now you can try as many as you want')
-    #If the user input == this password 991 so mines times by 1
+    # If the user input == this password 991 so mines times by 1
     elif user_value == 991:
         times -= 2
 
+
     # Check if the value is in range
-    # If the user value is bigger than 10 so print error and minos time by 1
+    # If the user value is bigger than 10 so print error and minus time by 1
     elif user_value > 10:
         print("Error: Your number is more than 10 TRY AGAIN with less number")
         times -= 1
 
-    # If the number is less than 1 print error
+    # If the number is less than 1 print error and minus time by 1
     elif user_value < 1:
         print("Error: Your number is less than 1 TRY AGAIN with bigger number")
         times -= 1
@@ -44,11 +45,13 @@ while computer_guess != user_value:
     user_value = int(input("You didn't get it try again..."))
 
 # Check for win
-if computer_guess == user_value and times == 0: # If the user win from the first time print win with CASINO
+if computer_guess == user_value and times == 0:  # If the user win from the first time print win with CASINO
     print("\nYOU WIN")
     print("CASINO")
 elif computer_guess == user_value:
     print("\nYOU WIN")
+    if times < 0:
+        times = 0
     print("You tried {} times".format(times + 1))
 else:
     print("YOU LOSE GG MAN")
