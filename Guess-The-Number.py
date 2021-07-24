@@ -1,59 +1,75 @@
-# Import randint
-from random import *
+from random import randint # imports the random integer function from the random module
 
-# TAKE SOME INPUTS
-# Take a random number and save it
-computer_guess = randint(1, 10)
-# set times as a number of guessing
-times = 0
-# set user value as an input
-user_value = int(input("Guess the number from 1 up to 10, You have 5 chances..."))
-
-# Do The processes
-while computer_guess != user_value:
-    # add 1 to the times which is counter
-    times += 1
-    # some help
-    # if the user enter the password 123 print the number of times that has been tried
-    if user_value == 123:
-        times -= 1
-        print("The number of trying is", times)
-    # If the user value is == the password 123321 set times to -99
-    elif user_value == 123321:
-        times = -99
-        print('BOOM Error(99T) Now you can try as many as you want')
-    # If the user input == this password 991 so mines times by 1
-    elif user_value == 991:
-        times -= 2
+computer_guess = randint(1, 50) # stores the unknown number in a variable
+chances = 5 # sets the chances available to the user to 5
 
 
-    # Check if the value is in range
-    # If the user value is bigger than 10 so print error and minus time by 1
-    elif user_value > 10:
-        print("Error: Your number is more than 10 TRY AGAIN with less number")
-        times -= 1
+def mainMenu(): # defines the main menu function, which will be prompted to the user every now and then
+    global chances
+    print('-' * 55)
+    print("Guess the number from 1 up to 50, You have %d chances..." % chances)
+    print('OR enter 404 to give up and show the answer...')
+    print('-' * 55)
+    user_value = int(input())  # stores the user's value
 
-    # If the number is less than 1 print error and minus time by 1
-    elif user_value < 1:
-        print("Error: Your number is less than 1 TRY AGAIN with bigger number")
-        times -= 1
+    return user_value
 
-    # Check how many times has the user
-    if times == 5:  # If number of times == 5 stop
-        break
-    # ask the user for a new input
-    user_value = int(input("You didn't get it try again..."))
+def hotCold(num,unknown): # defines the hot or cold function that will assist the user in guessing the number
 
-# Check for win
-if computer_guess == user_value and times == 0:  # If the user win from the first time print win with CASINO
+    if num > unknown:
+        if (num - 5) < unknown:
+            result = 'Hotter'
+        elif (num - 10) < unknown:
+            result = 'bit hotter'
+        else:
+            result = 'Colder'
+    elif num < unknown:
+        if (num + 5) > unknown:
+            result = 'Hotter'
+        elif (num + 10) > unknown:
+            result = 'bit hotter'
+        else:
+            result = 'Colder'
+    else:
+        result = 'Colder'
+
+    return result
+
+choice = mainMenu() # stores the choice made by the user from the main menu function into a variable
+
+# Computation Section
+while computer_guess != choice and choice != 404:  # this while loop will be executed till the specified condition
+
+    # validates the range
+    if choice > 50 or choice < 1:
+        print('Be careful mate... Your guess is out of range')
+        choice = mainMenu()
+    else:
+        # deducts the counter with each valid guess
+        chances -= 1
+        # if there are no more chances available, the loop gets interrupted and the code proceeds to the next lines
+        if chances == 0:
+            break
+        tip = hotCold(choice, computer_guess) ## stores the result of the hot or cold function in a variable
+        print('Try again... \"Hint: You are getting %s \"' % tip) ### prints the result of it
+        choice = mainMenu() # prompts the user for another guess
+
+# Check for the result based on the above computations
+if computer_guess == choice and chances == 5:  # If the user wins from the first time
     print("\nYOU WIN")
+    print('You guessed the number successfully!!!')
     print("CASINO")
-elif computer_guess == user_value:
+elif computer_guess == choice:
     print("\nYOU WIN")
-    if times < 0:
-        times = 0
-    print("You tried {} times".format(times + 1))
-else:
+    print('You guessed the number successfully!!!')
+elif choice == 404: # if the user gives up and wants to see the unknown number
+    print('Sorry mate...')
+    print('The unknown number was %d' % computer_guess)
+    print('Thanks for your time')
+else: # if the user failed to guess the number
     print("YOU LOSE GG MAN")
-print("\nThanks for your time, and I hope you have fun")
-print("If you face any problems feel free to tell me")
+    print('The unknown number was %d' % computer_guess)
+    print("\nThanks for your time, and I hope you have fun")
+
+# developer's message to the user
+print("Feel free to contact me if you face any issues.")
