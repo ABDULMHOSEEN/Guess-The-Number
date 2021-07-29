@@ -6,7 +6,7 @@ chances = 5 # sets the chances available to the user to 5
 
 def mainMenu(): # defines the main menu function, which will be prompted to the user every now and then
     global chances
-    print('-' * 55)
+    print('-'  * 55)
     print("Guess the number from 1 up to 50, You have %d chances..." % chances)
     print('OR enter 404 to give up and show the answer...')
     print('-' * 55)
